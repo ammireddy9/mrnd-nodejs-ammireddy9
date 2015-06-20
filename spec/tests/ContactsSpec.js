@@ -81,11 +81,12 @@ describe("Contacts Test Suite", function(){
 	// and retrieves it back.
 	describe("post and get message to contact", function(){
 		var msgId;
+		var idCreated=0;
 		it("should post message to contact", function(done){
 			//TODO: Write your test case here.
 			var message = new Object();
-			message.length=5;
-			message.data="hello";
+			message.cid = idCreated; 	//contact id
+			message.data= "hello";
 			request.post({url: contacts_url+"/msg",
 		    			  body: message,
 		    			  json: true
@@ -102,12 +103,12 @@ describe("Contacts Test Suite", function(){
 		it("should get message for contact", function(done){
 			//TODO: Write your test case here.
 			request.get({
-							url: contacts_url + "/msg/" + msgId,
+							url: contacts_url + "/msg/" + idCreated + "/"+ msgId,
 							json: true
 						},
 		    		    function(error, response, body){
 							expect(response.statusCode).toBe(200);
-							expect(body.data).toBe("hello");
+							expect(body).toBe("hello");
 							done();
 					    });
 
